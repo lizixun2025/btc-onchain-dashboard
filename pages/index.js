@@ -6,7 +6,9 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+        const res = await fetch(
+          'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true'
+        );
         const data = await res.json();
         setBtcData({
           price: data.bitcoin.usd,
@@ -18,7 +20,7 @@ export default function Home() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 5000); // 每5秒拉取数据
+    const interval = setInterval(fetchData, 30000); // 30秒刷新
     return () => clearInterval(interval);
   }, []);
 
@@ -37,7 +39,7 @@ export default function Home() {
       )}
 
       <h2 style={{ marginTop: '40px' }}>🔥 爆仓热力图（来自 Coinglass）</h2>
-      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
+      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
         <iframe
           src="https://www.coinglass.com/pro/futures/Cryptofutures"
           width="100%"
@@ -47,14 +49,14 @@ export default function Home() {
         />
       </div>
 
-      <h2>📈 Exchange Netflow（来自 CryptoQuant）</h2>
+      <h2 style={{ marginTop: '40px' }}>📉 Exchange Netflow（来自 CryptoQuant）</h2>
       <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
         <iframe
-          src="https://studio.glassnode.com/public-dashboard/78dd9d99-fd4e-4ff3-a18d-e594fbf951b8" // 可替换为你的 CryptoQuant 图表链接
+          src="https://studio.glassnode.com/public-dashboard/btc-exchange-netflow"
           width="100%"
-          height="500"
+          height="600"
           style={{ border: 'none' }}
-          title="CryptoQuant Netflow Chart"
+          title="CryptoQuant Exchange Netflow"
         />
       </div>
     </div>
