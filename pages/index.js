@@ -1,4 +1,7 @@
+// index.js - BTC On-Chain Dashboard 全新结构版
+
 import React, { useEffect, useState } from 'react';
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Home() {
   const [btcData, setBtcData] = useState({ price: null, change: null });
@@ -18,80 +21,81 @@ export default function Home() {
         console.error('Error fetching BTC data:', err);
       }
     };
-
     fetchData();
-    const interval = setInterval(fetchData, 5000); // 5秒刷新
+    const interval = setInterval(fetchData, 5000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div style={{ fontFamily: 'Arial', padding: '20px' }}>
-      <h1>📊 BTC On-Chain Dashboard</h1>
+    <main className="max-w-5xl mx-auto px-4 py-8 font-sans">
+      <h1 className="text-3xl font-bold mb-6">📊 BTC On-Chain Dashboard</h1>
 
-      <h2>📉 BTC 当前价格</h2>
-      {btcData.price ? (
-        <>
-          <p>USD: ${btcData.price.toLocaleString()}</p>
-          <p>24小时变化: {btcData.change}%</p>
-        </>
-      ) : (
-        <p>加载中...</p>
-      )}
+      <Card className="mb-6">
+        <CardContent className="p-4">
+          <h2 className="text-xl font-semibold mb-2">🪙 BTC 当前价格</h2>
+          {btcData.price ? (
+            <>
+              <p className="text-lg">USD: ${btcData.price.toLocaleString()}</p>
+              <p className="text-sm text-gray-600">24小时变化: {btcData.change}%</p>
+            </>
+          ) : (
+            <p>加载中...</p>
+          )}
+        </CardContent>
+      </Card>
 
-      <h2 style={{ marginTop: '40px' }}>🔥 爆仓热力图（来自 Coinglass）</h2>
-      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
-        <iframe
-          src="https://www.coinglass.com/pro/futures/Cryptofutures"
-          width="100%"
-          height="600"
-          style={{ border: 'none' }}
-          title="Coinglass Liquidation Heatmap"
-        />
-      </div>
+      <Card className="mb-6">
+        <CardContent className="p-4">
+          <h2 className="text-xl font-semibold mb-2">🔥 爆仓热力图（来自 Coinglass）</h2>
+          <iframe
+            src="https://www.coinglass.com/pro/futures/Cryptofutures"
+            width="100%"
+            height="600"
+            className="rounded border"
+            title="Coinglass Liquidation Heatmap"
+          />
+        </CardContent>
+      </Card>
 
-      <h2>📈 Exchange Netflow（来自 CryptoQuant）</h2>
-      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
-        <iframe
-          src="https://www.coinglass.com/pro/bitcoin/exchange/inflow"
-          width="100%"
-          height="600"
-          style={{ border: 'none' }}
-          title="CryptoQuant Exchange Netflow"
-        />
-      </div>
+      <Card className="mb-6">
+        <CardContent className="p-4">
+          <h2 className="text-xl font-semibold mb-2">📈 Exchange Netflow（来自 CryptoQuant）</h2>
+          <iframe
+            src="https://studio.glassnode.com/public-dashboard/9b245318-383e-4f4e-89dc-d40835a827d0"
+            width="100%"
+            height="500"
+            className="rounded border"
+            title="Exchange Netflow"
+          />
+        </CardContent>
+      </Card>
 
-      <h2>📊 多空比（来自 Coinglass）</h2>
-      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
-        <iframe
-          src="https://www.coinglass.com/pro/coinchart/longshort_ratio"
-          width="100%"
-          height="600"
-          style={{ border: 'none' }}
-          title="Long Short Ratio"
-        />
-      </div>
+      <Card className="mb-6">
+        <CardContent className="p-4">
+          <h2 className="text-xl font-semibold mb-2">📊 多空比（来自 Coinglass）</h2>
+          <iframe
+            src="https://www.coinglass.com/longShortRatio"
+            width="100%"
+            height="500"
+            className="rounded border"
+            title="Long Short Ratio"
+          />
+        </CardContent>
+      </Card>
 
-      <h2>🐋 巨鲸行为追踪（来自 CryptoQuant）</h2>
-      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
-        <iframe
-          src="https://www.coinglass.com/pro/bitcoin/whales"
-          width="100%"
-          height="600"
-          style={{ border: 'none' }}
-          title="Whale Activity"
-        />
-      </div>
+      <Card className="mb-6">
+        <CardContent className="p-4">
+          <h2 className="text-xl font-semibold mb-2">🐋 巨鲸行为追踪（来自 CryptoQuant）</h2>
+          <iframe
+            src="https://studio.glassnode.com/public-dashboard/49d0d3fc-5b2d-4efb-bb0b-7e4c95f3baef"
+            width="100%"
+            height="500"
+            className="rounded border"
+            title="Whale Watching"
+          />
+        </CardContent>
+      </Card>
 
-      <h2>🏦 ETF资金流向（来自 SoSoValue）</h2>
-      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
-        <iframe
-          src="https://www.sosovalue.com/en/etf/btc" 
-          width="100%"
-          height="600"
-          style={{ border: 'none' }}
-          title="ETF Flows"
-        />
-      </div>
-    </div>
+    </main>
   );
 }
