@@ -20,7 +20,7 @@ export default function Home() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 30000); // 30秒刷新
+    const interval = setInterval(fetchData, 5000); // 5秒刷新
     return () => clearInterval(interval);
   }, []);
 
@@ -28,7 +28,7 @@ export default function Home() {
     <div style={{ fontFamily: 'Arial', padding: '20px' }}>
       <h1>📊 BTC On-Chain Dashboard</h1>
 
-      <h2>🪙 BTC 当前价格</h2>
+      <h2>📉 BTC 当前价格</h2>
       {btcData.price ? (
         <>
           <p>USD: ${btcData.price.toLocaleString()}</p>
@@ -39,7 +39,7 @@ export default function Home() {
       )}
 
       <h2 style={{ marginTop: '40px' }}>🔥 爆仓热力图（来自 Coinglass）</h2>
-      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
+      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
         <iframe
           src="https://www.coinglass.com/pro/futures/Cryptofutures"
           width="100%"
@@ -49,14 +49,47 @@ export default function Home() {
         />
       </div>
 
-      <h2 style={{ marginTop: '40px' }}>📉 Exchange Netflow（来自 CryptoQuant）</h2>
-      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
+      <h2>📈 Exchange Netflow（来自 CryptoQuant）</h2>
+      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
         <iframe
-          src="https://studio.glassnode.com/public-dashboard/btc-exchange-netflow"
+          src="https://www.coinglass.com/pro/bitcoin/exchange/inflow"
           width="100%"
           height="600"
           style={{ border: 'none' }}
           title="CryptoQuant Exchange Netflow"
+        />
+      </div>
+
+      <h2>📊 多空比（来自 Coinglass）</h2>
+      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
+        <iframe
+          src="https://www.coinglass.com/pro/coinchart/longshort_ratio"
+          width="100%"
+          height="600"
+          style={{ border: 'none' }}
+          title="Long Short Ratio"
+        />
+      </div>
+
+      <h2>🐋 巨鲸行为追踪（来自 CryptoQuant）</h2>
+      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden', marginBottom: '40px' }}>
+        <iframe
+          src="https://www.coinglass.com/pro/bitcoin/whales"
+          width="100%"
+          height="600"
+          style={{ border: 'none' }}
+          title="Whale Activity"
+        />
+      </div>
+
+      <h2>🏦 ETF资金流向（来自 SoSoValue）</h2>
+      <div style={{ border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
+        <iframe
+          src="https://www.sosovalue.com/en/etf/btc" 
+          width="100%"
+          height="600"
+          style={{ border: 'none' }}
+          title="ETF Flows"
         />
       </div>
     </div>
